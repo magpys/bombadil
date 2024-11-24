@@ -1,12 +1,17 @@
 import {View} from "react-native";
 import PrimaryButton from "@/src/components/PrimaryButton";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {initialiseDatabase} from "@/src/storage/database";
+import QuotesList from "@/src/components/QuotesList";
 
 export default function Index() {
+    const [initialized, setInitialized] = useState(false);
+
     useEffect(() => {
-        initialiseDatabase().then(() => console.log('Database Initialized.'));
+        initialiseDatabase().then(() => setInitialized(true));
     })
+
+    console.log('is initialised?', initialized);
 
   return (
     <View
@@ -16,6 +21,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
+        {initialized && <QuotesList />}
         <PrimaryButton title={"Add new quote"} />
     </View>
   );
