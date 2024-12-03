@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 8,
         backgroundColor: THEME.accent,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
     },
     text: {
         fontSize: 16,
