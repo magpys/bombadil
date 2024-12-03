@@ -1,4 +1,4 @@
-export const Colors = {
+export const THEME = {
   background: '#121212', // Dark background
   text: '#E0E0E0', // Light text for quotes
   textSecondary: '#A0A0A0', // Muted text for metadata (author, date)

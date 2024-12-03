@@ -1,13 +1,14 @@
 import {Pressable, StyleSheet, Text} from "react-native";
-import {Colors} from "@/src/constants/Colors";
+import {THEME} from "@/src/constants/Theme";
 
 type Props = {
     title: string;
+    onPress: () => void;
 }
 
-export default function PrimaryButton({title}: Props) {
+export default function PrimaryButton({title, onPress}: Props) {
     return (
-        <Pressable style={styles.button} onPress={() => alert('Hello there!')}>
+        <Pressable style={styles.button} onPress={onPress}>
             <Text style={styles.text}>{title}</Text>
         </Pressable>
     )
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 15,
         borderRadius: 8,
-        backgroundColor: Colors.accent,
+        backgroundColor: THEME.accent,
     },
     text: {
         fontSize: 16,
-        color: Colors.textAccent,
+        color: THEME.textAccent,
         fontWeight: "bold",
     }
 })

@@ -1,7 +1,7 @@
-import {View, StyleSheet} from "react-native";
+import {View} from "react-native";
 import {useEffect, useState} from "react";
 import {getAllQuotes, Quote} from "@/src/storage/quoteRepository";
-import {Colors} from "@/src/constants/Colors";
+import ThemedText from "@/src/components/ThemedText";
 
 export default function QuotesList() {
     const [quotes, setQuotes] = useState<Quote[]>([]);
@@ -15,14 +15,8 @@ export default function QuotesList() {
     return (
         <View>
             {quotes.map(quote => (
-                <Text style={styles.text}>{quote.quote} - {quote.author}</Text>
+                <ThemedText>{quote.quote} - {quote.author}</ThemedText>
             ))}
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    text: {
-        color: Colors.text,
-    }
-})

@@ -1,8 +1,8 @@
 import {View} from "react-native";
-import PrimaryButton from "@/src/components/PrimaryButton";
 import {useEffect, useState} from "react";
 import {initialiseDatabase} from "@/src/storage/database";
 import QuotesList from "@/src/components/QuotesList";
+import AddNewQuoteModal from "@/src/components/AddNewQuoteModal";
 
 export default function Index() {
     const [initialized, setInitialized] = useState(false);
@@ -22,7 +22,7 @@ export default function Index() {
       }}
     >
         {initialized && <QuotesList />}
-        <PrimaryButton title={"Add new quote"} />
+      <AddNewQuoteModal />
     </View>
   );
 }
