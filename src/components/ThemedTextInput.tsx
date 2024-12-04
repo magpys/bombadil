@@ -5,17 +5,19 @@ type ThemedTextInputProps = {
   text: string;
   setText: (text: string) => void;
   placeholder: string;
+  muted?: boolean;
+  numberOfLines?: number;
 }
 
-export default function ThemedTextInput({text, setText, placeholder}: ThemedTextInputProps) {
+export default function ThemedTextInput({text, setText, placeholder, muted = false, numberOfLines = 3}: ThemedTextInputProps) {
   return (
     <TextInput
-      style={styles.input}
+      style={muted ? styles.mutedInput : styles.input}
       placeholder={placeholder}
       value={text}
       onChangeText={(text) => setText(text)}
       multiline={true}
-      numberOfLines={3} />
+      numberOfLines={numberOfLines} />
   )
 }
 
@@ -29,4 +31,13 @@ const styles = StyleSheet.create({
     color: THEME.text,
     width: '100%',
   },
+  mutedInput: {
+    borderColor: 'gray',
+    borderBottomWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 8,
+    fontSize: 20,
+    color: THEME.textSecondary,
+    width: '100%',
+  }
 })

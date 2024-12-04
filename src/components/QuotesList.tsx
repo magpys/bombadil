@@ -1,22 +1,21 @@
-import {View} from "react-native";
-import {useEffect, useState} from "react";
-import {getAllQuotes, Quote} from "@/src/storage/quoteRepository";
+import {ScrollView, View} from "react-native";
+import {Quote} from "@/src/storage/quoteRepository";
 import ThemedText from "@/src/components/ThemedText";
+import {THEME} from "@/src/constants/Theme";
 
-export default function QuotesList() {
-    const [quotes, setQuotes] = useState<Quote[]>([]);
+type QuoteListProps = {
+  quotes: Quote[];
+}
 
-    useEffect(() => {
-        getAllQuotes().then(retrievedQuotes => setQuotes(retrievedQuotes))
-    })
-
-    console.log(quotes);
-
-    return (
-        <View>
-            {quotes.map(quote => (
-                <ThemedText>{quote.quote} - {quote.author}</ThemedText>
-            ))}
+export default function QuotesList({quotes}: QuoteListProps) {
+  return (
+    <ScrollView contentContainerStyle={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      {quotes.map(quote => (
+        <View style={{ backgroundColor: THEME.cardBackground, borderRadius: 8, padding: 10 }}>
+          <ThemedText>{quote.quote}</ThemedText>
+          <ThemedText muted>{quote.author}</ThemedText>
         </View>
-    )
+      ))}
+    </ScrollView>
+  )
 }

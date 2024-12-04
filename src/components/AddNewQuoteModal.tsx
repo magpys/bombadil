@@ -4,14 +4,30 @@ import {useState} from "react";
 import {THEME} from "@/src/constants/Theme";
 import LinkButton from "@/src/components/LinkButton";
 import ThemedTextInput from "@/src/components/ThemedTextInput";
+import {addNewQuote} from "@/src/storage/quoteRepository";
 
-export default function AddNewQuoteModal() {
+type AddNewQuoteModalProps = {
+  fetchQuotes: () => Promise<void>;
+};
+
+export default function AddNewQuoteModal({ fetchQuotes }: AddNewQuoteModalProps) {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [quote, setQuote] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
 
+  async function submitQuote() {
+    await addNewQuote(quote, author);
+
+    setQuote("");
+    setAuthor("");
+
+    await fetchQuotes();
+
+    setModalOpen(false);
+  }
+
   return (
-    <View>
+    <View style={styles.addButtonSpace}>
       <PrimaryButton title={"➕Add new Quote"} onPress={() => setModalOpen(true)} />
       <Modal
         animationType="slide"
@@ -33,10 +49,12 @@ export default function AddNewQuoteModal() {
                       text={author}
                       setText={(text) => setAuthor(text)}
                       placeholder={"Enter author..."}
+                      muted
+                      numberOfLines={2}
                     />
                   </View>
                   <View style={styles.buttonGroup}>
-                    <PrimaryButton title={"➕Add"} onPress={() => setModalOpen(false)} />
+                    <PrimaryButton title={"➕Add"} onPress={submitQuote} />
                     <LinkButton text={"Close Modal"} onPress={() => setModalOpen(false)} />
                   </View>
                 </View>
@@ -49,6 +67,14 @@ export default function AddNewQuoteModal() {
 }
 
 const styles = StyleSheet.create({
+  addButtonSpace: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
   modalBackground: {
     flex: 1,
     justifyContent: "flex-end",

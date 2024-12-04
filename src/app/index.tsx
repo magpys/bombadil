@@ -3,26 +3,34 @@ import {useEffect, useState} from "react";
 import {initialiseDatabase} from "@/src/storage/database";
 import QuotesList from "@/src/components/QuotesList";
 import AddNewQuoteModal from "@/src/components/AddNewQuoteModal";
+import {getAllQuotes, Quote} from "@/src/storage/quoteRepository";
 
 export default function Index() {
-    const [initialized, setInitialized] = useState(false);
+    const [quotes, setQuotes] = useState<Quote[]>([]);
 
     useEffect(() => {
-        initialiseDatabase().then(() => setInitialized(true));
-    })
+        initialiseDatabase().then(async () => {
+          await fetchQuotes()
+        });
+    }, []);
 
-    console.log('is initialised?', initialized);
+    async function fetchQuotes() {
+      const newQuotes = await getAllQuotes();
+      setQuotes(newQuotes);
+    }
 
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        marginBottom: 20,
+        marginTop: 10
       }}
     >
-        {initialized && <QuotesList />}
-      <AddNewQuoteModal />
+        <QuotesList quotes={quotes} />
+      <AddNewQuoteModal fetchQuotes={fetchQuotes} />
     </View>
   );
 }
