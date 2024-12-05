@@ -6,18 +6,18 @@ import AddNewQuoteModal from "@/src/components/AddNewQuoteModal";
 import {getAllQuotes, Quote} from "@/src/storage/quoteRepository";
 
 export default function Index() {
-    const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
 
-    useEffect(() => {
-        initialiseDatabase().then(async () => {
-          await fetchQuotes()
-        });
-    }, []);
+  useEffect(() => {
+      initialiseDatabase().then(async () => {
+        await fetchQuotes()
+      });
+  }, []);
 
-    async function fetchQuotes() {
-      const newQuotes = await getAllQuotes();
-      setQuotes(newQuotes);
-    }
+  async function fetchQuotes() {
+    const newQuotes = await getAllQuotes();
+    setQuotes(newQuotes);
+  }
 
   return (
     <View
@@ -29,7 +29,7 @@ export default function Index() {
         marginTop: 10
       }}
     >
-        <QuotesList quotes={quotes} />
+      <QuotesList quotes={quotes} />
       <AddNewQuoteModal fetchQuotes={fetchQuotes} />
     </View>
   );
