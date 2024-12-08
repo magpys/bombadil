@@ -37,3 +37,9 @@ export async function editQuote(
 export async function deleteQuote(id: number): Promise<void> {
   await db.runAsync("DELETE FROM quotes WHERE id = ?;", id);
 }
+
+export async function getRandomQuote(): Promise<Quote> {
+  return (await db.getFirstAsync(
+    "SELECT * FROM quotes ORDER BY RANDOM() LIMIT 1;",
+  )) as Quote;
+}

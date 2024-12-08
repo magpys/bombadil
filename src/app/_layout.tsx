@@ -5,7 +5,9 @@ import { StatusBar } from "expo-status-bar";
 export default function RootLayout() {
   return (
     <ThemeProvider value={DarkTheme}>
-      <Stack />
+      <Stack>
+        <Stack.Screen name={"index"} options={{ headerTitle: "🪶 Bombadil" }} />
+      </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
   );

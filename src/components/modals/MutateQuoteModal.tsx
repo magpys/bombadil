@@ -35,7 +35,6 @@ export default function MutateQuoteModal({
   );
 
   useEffect(() => {
-    console.log("are we processing this?");
     setQuote(initialQuote ? initialQuote.quote : "");
     setAuthor(initialQuote ? initialQuote.author : "");
   }, [initialQuote]);
